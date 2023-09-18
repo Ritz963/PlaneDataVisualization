@@ -4,16 +4,39 @@ import matplotlib.pyplot as plt
 df = pd.read_csv('Airplane_Strikes_Dataset.csv')
 
 ##### Displays strike frequency each year #####
-# YearColumn = df['Incident Year']
-# number_counts = YearColumn.value_counts()
+YearColumn = df['Incident Year']
+number_counts = YearColumn.value_counts()
 
-# number_counts_sorted= number_counts.sort_index()
+number_counts_sorted= number_counts.sort_index()
 
-# plt.figure(figsize=(12, 6)) 
-# number_counts_sorted.plot(kind='bar')
-# plt.title('Strike Frequency each year')
-# plt.xlabel('Year')
-# plt.ylabel('Strike Frequency')
+plt.rcParams['figure.figsize'] = (12, 6)
+
+fig, ax = plt.subplots()
+
+number_counts_sorted.plot(kind='bar')
+
+# bar_color = color
+# for bar in bars:
+#   ax.text(
+#       bar.get_x() + bar.get_width() / 2,
+#       bar.get_height() + 0.3,
+#       round(bar.get_height(), 1),
+#       horizontalalignment='center',
+#       color=bar_color,
+#       weight='bold'
+#   )
+
+
+plt.title('Strike Frequency each year')
+
+plt.xlabel('Year')
+plt.ylabel('Strike Frequency')
+
+for spine in ['top', 'right']:
+    ax.spines[spine].set_visible(False)
+
+fig.tight_layout()
+
 
 
 ##### Displays all data #####
