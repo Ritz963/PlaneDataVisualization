@@ -3,15 +3,21 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv('Airplane_Strikes_Dataset.csv')
 
+##### Displays strike frequency each year #####
+# YearColumn = df['Incident Year']
+# number_counts = YearColumn.value_counts()
 
+# number_counts_sorted= number_counts.sort_index()
+
+# plt.figure(figsize=(12, 6)) 
+# number_counts_sorted.plot(kind='bar')
+# plt.title('Strike Frequency each year')
+# plt.xlabel('Year')
+# plt.ylabel('Strike Frequency')
 
 
 ##### Displays all data #####
 # df.plot.line(x = 'Incident Year')
-
-
-
-
 
 
 ###### Displays frequency of each type of engine in each strike ######
@@ -27,12 +33,10 @@ df = pd.read_csv('Airplane_Strikes_Dataset.csv')
 
 
 
-plt.show()
-
 # data = (3, 6, 9, 12)
 
 # fig, simple_chart = plt.subplots()
 
 # simple_chart.plot(data)
 
-# plt.show()
+plt.show()
