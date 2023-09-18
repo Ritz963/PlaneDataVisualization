@@ -3,16 +3,28 @@ import matplotlib.pyplot as plt
 
 df = pd.read_csv('Airplane_Strikes_Dataset.csv')
 
-column_to_analyze = df['Engine Type']
 
-letter_counts = column_to_analyze.str.lower().str.replace(r'[^a-z]', '', regex=True).value_counts()
 
-plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
-letter_counts.plot(kind='bar')
-plt.title('Engine Type Strike Frequency')
-plt.xlabel('Engine Type')
-plt.ylabel('Frequency')
-plt.show()
+
+##### Displays all data #####
+# df.plot.line(x = 'Incident Year')
+
+
+
+
+
+
+###### Displays frequency of each type of engine in each strike ######
+# column_to_analyze = df['Engine Type']
+
+# letter_counts = column_to_analyze.str.lower().str.replace(r'[^a-z]', '', regex=True).value_counts()
+
+# plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
+# letter_counts.plot(kind='bar')
+# plt.title('Engine Type Strike Frequency')
+# plt.xlabel('Engine Type')
+# plt.ylabel('Frequency')
+
 
 
 plt.show()
