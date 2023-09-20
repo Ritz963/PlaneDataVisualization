@@ -8,14 +8,22 @@ df = pd.read_csv('Airplane_Strikes_Dataset.csv')
 locations = ['Radome Strike' , 'Windshield Strike' , 'Nose Strike' , 'Engine1 Strike' , 'Engine2 Strike' , 'Engine3 Strike' , 'Engine4 Strike' , 'Propeller Strike' , 'Wing or Rotor Strike' , 'Fuselage Strike' , 'Landing Gear Strike' , 'Tail Strike' , 'Lights Strike' , 'Other Strike']
 filtered_df = df[locations]
 column_sums = filtered_df.sum()
-column_sums_sorted = column_sums.sort_values()
+column_sums_sorted = column_sums.sort_values(ascending=False)
 
 plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
-column_sums_sorted.plot(kind='bar')
-plt.title('Sum of Values for Selected Titles')
-plt.xlabel('Titles')
-plt.ylabel('Sum')
-plt.xticks(rotation=45)  # Rotate x-axis labels for readability if needed
+ax = column_sums_sorted.plot(kind='bar')
+plt.title('Number of strikes in each location')
+plt.xlabel('Location')
+plt.ylabel('Number of Strikes')
+plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels and align them to the right
+plt.tight_layout()  # Ensure all labels are visible within the plot
+
+for i, v in enumerate(column_sums_sorted):
+    ax.text(i, v, str(v), ha='center', va='bottom')
+
+for spine in ['top', 'right']:
+    ax.spines[spine].set_visible(False)
+
 plt.show()
 
 
