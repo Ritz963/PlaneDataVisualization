@@ -5,18 +5,18 @@ df = pd.read_csv('Airplane_Strikes_Dataset.csv')
 
 ##### Display where strikes occured most often #####
 
-# locations = ['Radome Strike' , 'Windshield Strike' , 'Nose Strike' , 'Engine1 Strike' , 'Engine2 Strike' , 'Engine3 Strike' , 'Engine4 Strike' , 'Propeller Strike' , 'Wing or Rotor Strike' , 'Fuselage Strike' , 'Landing Gear Strike' , 'Tail Strike' , 'Lights Strike' , 'Other Strike']
-# locationSum = df[locations].sum
-# plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
+locations = ['Radome Strike' , 'Windshield Strike' , 'Nose Strike' , 'Engine1 Strike' , 'Engine2 Strike' , 'Engine3 Strike' , 'Engine4 Strike' , 'Propeller Strike' , 'Wing or Rotor Strike' , 'Fuselage Strike' , 'Landing Gear Strike' , 'Tail Strike' , 'Lights Strike' , 'Other Strike']
+filtered_df = df[locations]
+column_sums = filtered_df.sum()
+column_sums_sorted = column_sums.sort_values()
 
-# locationSum = pd.Series(locationSum)
-
-
-# locationSum.plot(kind = 'b ar')
-# plt.title('Location strike frequency')
-# plt.xlabel('Locations')
-# plt.ylabel('Frequency')
-# plt.xticks(rotation=45)
+plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
+column_sums_sorted.plot(kind='bar')
+plt.title('Sum of Values for Selected Titles')
+plt.xlabel('Titles')
+plt.ylabel('Sum')
+plt.xticks(rotation=45)  # Rotate x-axis labels for readability if needed
+plt.show()
 
 
 ##### Displays strike frequency each year #####
