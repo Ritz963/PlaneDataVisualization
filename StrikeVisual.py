@@ -4,31 +4,31 @@ import calendar
 
 df = pd.read_csv('Airplane_Strikes_Dataset.csv')
 
+##### Average strikes a month #####
+# df['YearMonth'] = df['Incident Year'].astype(str) + '-' + df['Incident Month'].astype(str)
+# df['Incident Month'] = df['YearMonth'].str.split('-').str[1].astype(int)
+# df['Incident Month'] = df['Incident Month'].apply(lambda x: calendar.month_name[x])
 
-df['YearMonth'] = df['Incident Year'].astype(str) + '-' + df['Incident Month'].astype(str)
-df['Incident Month'] = df['YearMonth'].str.split('-').str[1].astype(int)
-df['Incident Month'] = df['Incident Month'].apply(lambda x: calendar.month_name[x])
+# # Count the occurrences of each month
+# month_counts = df['Incident Month'].value_counts()
+# sorted_months = [calendar.month_name[i] for i in range(1, 13)]
+# month_counts = month_counts.reindex(sorted_months, fill_value=0)
 
-# Count the occurrences of each month
-month_counts = df['Incident Month'].value_counts()
-sorted_months = [calendar.month_name[i] for i in range(1, 13)]
-month_counts = month_counts.reindex(sorted_months, fill_value=0)
+# # Calculate the number of unique years in the dataset
+# num_years = df['Incident Year'].nunique()
 
-# Calculate the number of unique years in the dataset
-num_years = df['Incident Year'].nunique()
+# # Calculate the average occurrences of each month every year
+# average_month_counts = month_counts / num_years
 
-# Calculate the average occurrences of each month every year
-average_month_counts = month_counts / num_years
+# plt.figure(figsize=(12, 6))
+# average_month_counts.plot(kind='bar', x='Incident Month', y='Average Count')
+# plt.title('Average number of strikes each Month')
+# plt.xlabel('Incident Month')
+# plt.ylabel('Number of strikes')
+# plt.xticks(rotation=45)
 
-plt.figure(figsize=(12, 6))
-average_month_counts.plot(kind='bar', x='Incident Month', y='Average Count')
-plt.title('Average number of strikes each Month')
-plt.xlabel('Incident Month')
-plt.ylabel('Number of strikes')
-plt.xticks(rotation=45)
-
-plt.tight_layout()
-plt.show()
+# plt.tight_layout()
+# plt.show()
 
 
 
