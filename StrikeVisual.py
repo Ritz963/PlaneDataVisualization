@@ -1,8 +1,54 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import calendar
+import numpy as np
 
 df = pd.read_csv('Airplane_Strikes_Dataset.csv')
+
+
+##### Displays the phase where the strikes took plave #####
+flight_phase_counts = df['Flight Phase'].value_counts()
+
+# Create a bar graph to display the occurrence of each unique entry
+plt.figure(figsize=(12, 6))
+flight_phase_counts.plot(kind='bar', x='Flight Phase', y='Count')
+plt.title('Occurrence of Each Flight Phase')
+plt.xlabel('Flight Phase')
+plt.ylabel('Count')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+
+
+##### Displays the number of strikes in each state each month #####
+# df['YearMonth'] = df['Incident Year'].astype(str) + '-' + df['Incident Month'].astype(str)
+# df['Incident Month'] = df['Incident Month'].apply(lambda x: calendar.month_name[x])
+
+# # Create a custom order for months
+# month_order = [calendar.month_name[i] for i in range(1, 13)]
+
+# # Group the data by 'State' and 'Month' and count the occurrences
+# state_month_counts = df.groupby(['State', 'Incident Month']).size().unstack().fillna(0)
+# state_month_counts = state_month_counts.reindex(columns=month_order)  # Reorder the columns
+
+# # Limit the number of displayed states to the top N states with the highest occurrences
+# top_n_states = 25
+# top_states = state_month_counts.sum(axis=1).nlargest(top_n_states).index
+
+# # Create the line graph for the top N states
+# plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
+# for state in top_states:
+#     plt.plot(state_month_counts.columns, state_month_counts.loc[state], label=state)
+
+# plt.title('Occurrences of Top States for Each Month')
+# plt.xlabel('Incident Month')
+# plt.ylabel('Number of Occurrences')
+# plt.xticks(rotation=45)
+# plt.legend(loc='upper right')
+# plt.grid(True, linestyle='--', alpha=0.7)
+
+
 
 ##### Average strikes a month #####
 # df['YearMonth'] = df['Incident Year'].astype(str) + '-' + df['Incident Month'].astype(str)
@@ -104,4 +150,5 @@ df = pd.read_csv('Airplane_Strikes_Dataset.csv')
 
 # simple_chart.plot(data)
 
+plt.tight_layout()
 plt.show()
