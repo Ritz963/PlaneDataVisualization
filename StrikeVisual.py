@@ -22,17 +22,28 @@ df = pd.read_csv('Airplane_Strikes_Dataset.csv')
 # plt.xticks(rotation=90)
 
 
+##### Displays the wildlife that was struck #####
+# species_counts = df['Species Name'].value_counts()
+
+# top_30_species = species_counts.head(30)
+
+# # Create a bar graph to display the occurrence of each unique entry
+# plt.figure(figsize=(12, 6))
+# top_30_species.plot(kind='bar', x='Flight Phase', y='Count')
+# plt.title('Species strike frequency')
+# plt.xlabel('Species')
+# plt.ylabel('Count')
 
 ##### Displays the phase where the strikes took place #####
-flight_phase_counts = df['Flight Phase'].value_counts()
+# flight_phase_counts = df['Flight Phase'].value_counts()
 
-# Create a bar graph to display the occurrence of each unique entry
-plt.figure(figsize=(12, 6))
-flight_phase_counts.plot(kind='bar', x='Flight Phase', y='Count')
-plt.title('Occurrence of Strikes in Each Flight Phase')
-plt.xlabel('Flight Phase')
-plt.ylabel('Count')
-plt.xticks(rotation=45)
+# # Create a bar graph to display the occurrence of each unique entry
+# plt.figure(figsize=(12, 6))
+# flight_phase_counts.plot(kind='bar', x='Flight Phase', y='Count')
+# plt.title('Occurrence of Strikes in Each Flight Phase')
+# plt.xlabel('Flight Phase')
+# plt.ylabel('Count')
+# plt.xticks(rotation=45)
 
 
 
@@ -140,6 +151,27 @@ plt.xticks(rotation=45)
 #     ax.spines[spine].set_visible(False)
 
 
+##### Shows where damage occurs on the plane #####
+# locations = ['Radome Damage' , 'Windshield Damage' , 'Nose Damage' , 'Engine1 Damage' , 'Engine2 Damage' , 'Engine3 Damage' , 'Engine4 Damage' , 'Propeller Damage' , 'Wing or Rotor Damage' , 'Fuselage Damage' , 'Landing Gear Damage' , 'Tail Damage' , 'Lights Damage' , 'Other Damage']
+# filtered_df = df[locations]
+# column_sums = filtered_df.sum()
+# column_sums_sorted = column_sums.sort_values(ascending=False)
+
+# plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
+# ax = column_sums_sorted.plot(kind='bar')
+# plt.title('Number of Damages in each location')
+# plt.xlabel('Location')
+# plt.ylabel('Number of Damages')
+# plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels and align them to the right
+# plt.tight_layout()  # Ensure all labels are visible within the plot
+
+# for i, v in enumerate(column_sums_sorted):
+#     ax.text(i, v, str(v), ha='center', va='bottom')
+
+# for spine in ['top', 'right']:
+#     ax.spines[spine].set_visible(False)
+
+
 
 ##### Displays strike frequency each year #####
 # YearColumn = df['Incident Year']
@@ -203,6 +235,56 @@ plt.xticks(rotation=45)
 # fig, simple_chart = plt.subplots()
 
 # simple_chart.plot(data)
+
+
+
+
+##### Displays the probability a part of a plane is damaged if struck #####
+
+# Define the list of locations for strikes and damages
+strike_locations = ['Radome Strike' , 'Windshield Strike' , 'Nose Strike' , 'Engine1 Strike' , 'Engine2 Strike' , 'Engine3 Strike' , 'Engine4 Strike' , 'Propeller Strike' , 'Wing or Rotor Strike' , 'Fuselage Strike' , 'Landing Gear Strike' , 'Tail Strike' , 'Lights Strike' , 'Other Strike']
+
+damage_locations = ['Radome Damage' , 'Windshield Damage' , 'Nose Damage' , 'Engine1 Damage' , 'Engine2 Damage' , 'Engine3 Damage' , 'Engine4 Damage' , 'Propeller Damage' , 'Wing or Rotor Damage' , 'Fuselage Damage' , 'Landing Gear Damage' , 'Tail Damage' , 'Lights Damage' , 'Other Damage']
+
+# Filter the DataFrame to include only the relevant columns for strikes and damages
+filtered_strike_df = df[strike_locations]
+filtered_damage_df = df[damage_locations]
+
+# Calculate the total number of strikes and damages for each location
+strike_counts = filtered_strike_df.sum()
+damage_counts = filtered_damage_df.sum()
+
+strike_counts.index = strike_counts.index.str.split().str[0]
+damage_counts.index = damage_counts.index.str.split().str[0]
+
+# Calculate the probability of damage if struck for each location
+probability_damage_if_struck = damage_counts.divide(strike_counts)
+
+# # Sort the locations by probability in descending order
+# probability_damage_if_struck_sorted = probability_damage_if_struck.sort_values(ascending=False)
+
+print("Strike Counts:")
+print(strike_counts)
+print(strike_counts.dtype)
+print("Damage Counts:")
+print(damage_counts)
+print(damage_counts.dtype)
+
+# Calculate the probability of damage if struck for each location
+probability_damage_if_struck = damage_counts.divide(strike_counts)
+probability_damage_if_struck_sorted = probability_damage_if_struck.sort_values(ascending=False)
+
+# Create a bar graph to display the probabilities
+plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
+ax = probability_damage_if_struck_sorted.plot(kind='bar')
+plt.title('Probability of Damage if Struck for Each Location')
+plt.xlabel('Location')
+plt.ylabel('Probability')
+plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels and align them to the right
+plt.tight_layout()  # Ensure all labels are visible within the plot
+
+for i, v in enumerate(probability_damage_if_struck_sorted):
+    ax.text(i, v, f'{v:.2f}', ha='center', va='bottom')
 
 plt.tight_layout()
 plt.show()
