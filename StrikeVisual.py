@@ -174,117 +174,117 @@ df = pd.read_csv('Airplane_Strikes_Dataset.csv')
 
 
 ##### Displays strike frequency each year #####
-# YearColumn = df['Incident Year']
-# number_counts = YearColumn.value_counts()
+YearColumn = df['Incident Year']
+number_counts = YearColumn.value_counts()
 
-# number_counts_sorted = number_counts.sort_index()
+number_counts_sorted = number_counts.sort_index()
 
-# plt.rcParams['figure.figsize'] = (12, 6)
+plt.rcParams['figure.figsize'] = (12, 6)
 
-# fig, ax = plt.subplots()
+fig, ax = plt.subplots()
 
-# number_counts_sorted.plot(kind='line')
+number_counts_sorted.plot(kind='line')
 
-# # Calculate the trend line
-# x_values = number_counts_sorted.index
-# y_values = number_counts_sorted.values
+# Calculate the trend line
+x_values = number_counts_sorted.index
+y_values = number_counts_sorted.values
 
-# slope, intercept, r_value, p_value, std_err = linregress(x_values, y_values)
-# trend_line = slope * x_values + intercept
+slope, intercept, r_value, p_value, std_err = linregress(x_values, y_values)
+trend_line = slope * x_values + intercept
 
-# # Plot the trend line
-# plt.plot(x_values, trend_line, label=f'Trend Line (y = {slope:.2f}x + {intercept:.2f})', color='red')
+# Plot the trend line
+plt.plot(x_values, trend_line, label=f'Trend Line (y = {slope:.2f}x + {intercept:.2f})', color='red')
 
-# plt.title('Strike Frequency each year')
-# plt.xlabel('Year')
-# plt.ylabel('Strike Frequency')
+plt.title('Strike Frequency each year')
+plt.xlabel('Year')
+plt.ylabel('Strike Frequency')
 
-# for spine in ['top', 'right']:
-#     ax.spines[spine].set_visible(False)
+for spine in ['top', 'right']:
+    ax.spines[spine].set_visible(False)
 
-# plt.legend()  # Display the legend with the trend line
+plt.legend()  # Display the legend with the trend line
 
-# fig.tight_layout()
-# plt.show()
+fig.tight_layout()
+plt.show()
 
-# # Print the formula of the trend line
-# print(f'Trend Line Formula: y = {slope:.2f}x + {intercept:.2f}')
-
-
-
-##### Displays all data #####
-# df.plot.line(x = 'Incident Year')
-
-
-###### Displays frequency of each type of engine in each strike ######
-# column_to_analyze = df['Engine Type']
-
-# letter_counts = column_to_analyze.str.lower().str.replace(r'[^a-z]', '', regex=True).value_counts()
-
-# plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
-# letter_counts.plot(kind='bar')
-# plt.title('Engine Type Strike Frequency')
-# plt.xlabel('Engine Type')
-# plt.ylabel('Frequency')
-# ax.set_xticklabels(ax.get_xticks(), rotation=90)
+# Print the formula of the trend line
+print(f'Trend Line Formula: y = {slope:.2f}x + {intercept:.2f}')
 
 
 
-# data = (3, 6, 9, 12)
+#### Displays all data #####
+df.plot.line(x = 'Incident Year')
 
-# fig, simple_chart = plt.subplots()
 
-# simple_chart.plot(data)
+##### Displays frequency of each type of engine in each strike ######
+column_to_analyze = df['Engine Type']
+
+letter_counts = column_to_analyze.str.lower().str.replace(r'[^a-z]', '', regex=True).value_counts()
+
+plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
+letter_counts.plot(kind='bar')
+plt.title('Engine Type Strike Frequency')
+plt.xlabel('Engine Type')
+plt.ylabel('Frequency')
+ax.set_xticklabels(ax.get_xticks(), rotation=90)
+
+
+
+data = (3, 6, 9, 12)
+
+fig, simple_chart = plt.subplots()
+
+simple_chart.plot(data)
 
 
 
 
 ##### Displays the probability a part of a plane is damaged if struck #####
 
-# Define the list of locations for strikes and damages
-strike_locations = ['Radome Strike' , 'Windshield Strike' , 'Nose Strike' , 'Engine1 Strike' , 'Engine2 Strike' , 'Engine3 Strike' , 'Engine4 Strike' , 'Propeller Strike' , 'Wing or Rotor Strike' , 'Fuselage Strike' , 'Landing Gear Strike' , 'Tail Strike' , 'Lights Strike' , 'Other Strike']
+# # Define the list of locations for strikes and damages
+# strike_locations = ['Radome Strike' , 'Windshield Strike' , 'Nose Strike' , 'Engine1 Strike' , 'Engine2 Strike' , 'Engine3 Strike' , 'Engine4 Strike' , 'Propeller Strike' , 'Wing or Rotor Strike' , 'Fuselage Strike' , 'Landing Gear Strike' , 'Tail Strike' , 'Lights Strike' , 'Other Strike']
 
-damage_locations = ['Radome Damage' , 'Windshield Damage' , 'Nose Damage' , 'Engine1 Damage' , 'Engine2 Damage' , 'Engine3 Damage' , 'Engine4 Damage' , 'Propeller Damage' , 'Wing or Rotor Damage' , 'Fuselage Damage' , 'Landing Gear Damage' , 'Tail Damage' , 'Lights Damage' , 'Other Damage']
+# damage_locations = ['Radome Damage' , 'Windshield Damage' , 'Nose Damage' , 'Engine1 Damage' , 'Engine2 Damage' , 'Engine3 Damage' , 'Engine4 Damage' , 'Propeller Damage' , 'Wing or Rotor Damage' , 'Fuselage Damage' , 'Landing Gear Damage' , 'Tail Damage' , 'Lights Damage' , 'Other Damage']
 
-# Filter the DataFrame to include only the relevant columns for strikes and damages
-filtered_strike_df = df[strike_locations]
-filtered_damage_df = df[damage_locations]
+# # Filter the DataFrame to include only the relevant columns for strikes and damages
+# filtered_strike_df = df[strike_locations]
+# filtered_damage_df = df[damage_locations]
 
-# Calculate the total number of strikes and damages for each location
-strike_counts = filtered_strike_df.sum()
-damage_counts = filtered_damage_df.sum()
+# # Calculate the total number of strikes and damages for each location
+# strike_counts = filtered_strike_df.sum()
+# damage_counts = filtered_damage_df.sum()
 
-strike_counts.index = strike_counts.index.str.split().str[0]
-damage_counts.index = damage_counts.index.str.split().str[0]
+# strike_counts.index = strike_counts.index.str.split().str[0]
+# damage_counts.index = damage_counts.index.str.split().str[0]
 
-# Calculate the probability of damage if struck for each location
-probability_damage_if_struck = damage_counts.divide(strike_counts)
+# # Calculate the probability of damage if struck for each location
+# probability_damage_if_struck = damage_counts.divide(strike_counts)
 
-# # Sort the locations by probability in descending order
+# # # Sort the locations by probability in descending order
+# # probability_damage_if_struck_sorted = probability_damage_if_struck.sort_values(ascending=False)
+
+# print("Strike Counts:")
+# print(strike_counts)
+# print(strike_counts.dtype)
+# print("Damage Counts:")
+# print(damage_counts)
+# print(damage_counts.dtype)
+
+# # Calculate the probability of damage if struck for each location
+# probability_damage_if_struck = damage_counts.divide(strike_counts)
 # probability_damage_if_struck_sorted = probability_damage_if_struck.sort_values(ascending=False)
 
-print("Strike Counts:")
-print(strike_counts)
-print(strike_counts.dtype)
-print("Damage Counts:")
-print(damage_counts)
-print(damage_counts.dtype)
+# # Create a bar graph to display the probabilities
+# plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
+# ax = probability_damage_if_struck_sorted.plot(kind='bar')
+# plt.title('Probability of Damage if Struck for Each Location')
+# plt.xlabel('Location')
+# plt.ylabel('Probability')
+# plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels and align them to the right
+# plt.tight_layout()  # Ensure all labels are visible within the plot
 
-# Calculate the probability of damage if struck for each location
-probability_damage_if_struck = damage_counts.divide(strike_counts)
-probability_damage_if_struck_sorted = probability_damage_if_struck.sort_values(ascending=False)
-
-# Create a bar graph to display the probabilities
-plt.figure(figsize=(12, 6))  # Adjust the figure size as needed
-ax = probability_damage_if_struck_sorted.plot(kind='bar')
-plt.title('Probability of Damage if Struck for Each Location')
-plt.xlabel('Location')
-plt.ylabel('Probability')
-plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels and align them to the right
-plt.tight_layout()  # Ensure all labels are visible within the plot
-
-for i, v in enumerate(probability_damage_if_struck_sorted):
-    ax.text(i, v, f'{v:.2f}', ha='center', va='bottom')
+# for i, v in enumerate(probability_damage_if_struck_sorted):
+#     ax.text(i, v, f'{v:.2f}', ha='center', va='bottom')
 
 plt.tight_layout()
 plt.show()
